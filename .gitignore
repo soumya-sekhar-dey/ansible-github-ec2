@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+
+# Mac system files
+.DS_Store
+
+# VSCode settings
+.vscode/
+
+# Virtual environments
+venv/
+env/
+
+# Logs
+*.log
+
+# Docker
+*.pid
+*.tar
+*.img
+*.container
+
+# Ansible
+*.retry
+
+# Node.js (if any frontend stuff)
+node_modules/
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Miscellaneous
+*.bak
+*.swp
+.idea/
+*.iml
+
