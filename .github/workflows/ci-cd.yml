@@ -43,17 +43,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Set up dynamic inventory
+      run: |
+        export EC2_PUBLIC_IP=${{ secrets.EC2_PUBLIC_IP }}
+        envsubst < ansible/inventory.template > ansible/inventory
+
     - name: Write private key
       run: |
         echo "${{ secrets.EC2_SSH_KEY }}" > ./ansible/id_rsa
         chmod 600 ./ansible/id_rsa
-
-    - name: Debug inventory file and location
-      run: |
-        echo "==============="
-        pwd
-        ls -al
-        cat ansible/inventory
 
     - name: Run Ansible playbook
       uses: dawidd6/action-ansible-playbook@v3
