@@ -1,0 +1,56 @@
+- name: Deploy containerized Python app to EC2
+  hosts: webserver
+  become: yes
+
+  vars:
+    container_name: python-webapp
+    docker_image: "{{ docker_image | default('your-dockerhub-username/python-webapp:latest') }}"
+
+  tasks:
+  - name: Install Docker
+    yum:
+      name: docker
+      state: present
+
+  - name: Start Docker service
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: Pull Docker image
+    docker_image:
+      name: "{{ docker_image }}"
+      source: pull
+
+  - name: Run Docker container
+    docker_container:
+      name: "{{ container_name }}"
+      image: "{{ docker_image }}"
+      state: started
+      restart_policy: always
+      published_ports:
+        - "5000:5000"
+
+  - name: Install Nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Create Nginx config
+    copy:
+      dest: /etc/nginx/conf.d/webapp.conf
+      content: |
+        server {
+            listen 80;
+            server_name _;
+            location / {
+                proxy_pass http://localhost:5000;
+            }
+        }
+
+  - name: Start and enable Nginx
+    service:
+      name: nginx
+      state: restarted
+      enabled: yes
