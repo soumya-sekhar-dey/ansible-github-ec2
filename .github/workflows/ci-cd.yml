@@ -55,11 +55,18 @@ jobs:
         ls -al
         cat ansible/inventory
 
-    - name: Run Ansible playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        playbook: ansible/playbook.yml
-        inventory: ansible/inventory
-        key: ${{ secrets.EC2_SSH_KEY }}
-        options: |
-          --extra-vars "docker_image=soumyasekhardey/ansible-app:latest"
+    # - name: Run Ansible playbook
+    #   uses: dawidd6/action-ansible-playbook@v2
+    #   with:
+    #     playbook: ansible/playbook.yml
+    #     inventory: ansible/inventory
+    #     key: ${{ secrets.EC2_SSH_KEY }}
+    #     options: |
+    #       --extra-vars "docker_image=soumyasekhardey/ansible-app:latest"
+
+    - name: Run ansible playbook on ec2
+      run: |
+        echo "ssh to ec2 instance"
+        cd ansible
+        ssh -i "id_rsa" ec2-user@ec2-34-229-18-175.compute-1.amazonaws.com
+        whoami 
