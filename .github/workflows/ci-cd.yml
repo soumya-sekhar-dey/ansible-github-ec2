@@ -48,9 +48,11 @@ jobs:
         echo "${{ secrets.EC2_SSH_KEY }}" > ./ansible/id_rsa
         chmod 600 ./ansible/id_rsa
 
-    - name: Debug inventory file
+    - name: Debug inventory file and location
       run: |
         echo "==============="
+        pwd
+        ls -al
         cat ansible/inventory
 
     - name: Run Ansible playbook
@@ -58,6 +60,6 @@ jobs:
       with:
         playbook: ansible/playbook.yml
         inventory: ansible/inventory
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        key: ${{ secrets.EC2_SSH_KEY }}
         options: |
           --extra-vars "docker_image=soumyasekhardey/ansible-app:latest"
