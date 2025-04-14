@@ -59,7 +59,7 @@ jobs:
       uses: dawidd6/action-ansible-playbook@v3
       with:
         playbook: ansible/playbook.yml
-        inventory: ansible/inventory
-        key: ${{ secrets.EC2_SSH_KEY }}
+        #inventory: ansible/inventory
+        #key: ${{ secrets.EC2_SSH_KEY }}
         options: |
           --extra-vars "docker_image=soumyasekhardey/ansible-app:latest"
