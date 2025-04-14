@@ -43,6 +43,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Write private key
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" > ./ansible/id_rsa
+        chmod 600 ./ansible/id_rsa
+
+    - name: Debug inventory file
+      run: |
+        cat .ansible_inventory
+        echo "==============="
+        cat ansible/inventory
+
     - name: Run Ansible playbook
       uses: dawidd6/action-ansible-playbook@v2
       with:
