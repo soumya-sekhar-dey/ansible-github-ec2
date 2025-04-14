@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t your-dockerhub-username/python-webapp:latest .
+        docker build -t soumyasekhardey/ansible-app:latest .
 
     - name: Push Docker image
       run: |
@@ -50,4 +50,4 @@ jobs:
         inventory: ansible/inventory
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         options: |
-          --extra-vars "docker_image=your-dockerhub-username/python-webapp:latest"
+          --extra-vars "docker_image=soumyasekhardey/ansible-app:latest"

@@ -4,7 +4,7 @@
 
   vars:
     container_name: python-webapp
-    docker_image: "{{ docker_image | default('your-dockerhub-username/python-webapp:latest') }}"
+    docker_image: "{{ docker_image | default('soumyasekhardey/ansible-app:latest') }}"
 
   tasks:
   - name: Install Docker
